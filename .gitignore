@@ -301,3 +301,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+Ace.Dfs.Server/shares.json
+Ace.Dfs.Server/dfs.json

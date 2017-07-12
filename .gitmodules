@@ -1,0 +1,3 @@
+[submodule "Ace.Networking"]
+	path = Ace.Networking
+	url = https://github.com/PowerOfDark/Ace.Networking
