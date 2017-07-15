@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Ace.Dfs.Common.Structures;
 using ProtoBuf;
 
@@ -21,7 +20,7 @@ namespace Ace.Dfs.Common.Packets.DownloadFile
         [ProtoMember(1)]
         public FileInfo FileInfo { get; protected set; }
 
-        [NotMapped]
+        //[NotMapped]
         public bool Success => FileInfo?.FileExists ?? false;
     }
 }

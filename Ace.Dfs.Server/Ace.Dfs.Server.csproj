@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ace.Dfs.Common\Ace.Dfs.Common.csproj" />
+    <ProjectReference Include="..\Ace.Networking\Ace.Networking.csproj" />
   </ItemGroup>
 
 </Project>
