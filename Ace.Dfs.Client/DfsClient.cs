@@ -32,7 +32,7 @@ namespace Ace.Dfs.Client
         private long _currentCacheSize;
         private volatile bool _initialized;
 
-        public DfsClient(string serverCommonName, TcpClient client, X509Certificate cert, string path = "",
+        public DfsClient(string serverCommonName, TcpClient client, X509Certificate2 cert, string path = "",
             long cacheSize = 1024 * 1024 * 1024 * 2L, int cacheLookupSize = 100_000, long minFree = 1024 * 1024 * 50)
         {
             var cfg = DfsProtocolConfiguration.Instance;

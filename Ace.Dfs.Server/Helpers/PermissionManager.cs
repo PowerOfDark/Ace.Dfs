@@ -35,6 +35,7 @@ namespace Ace.Dfs.Server.Helpers
                     $"[Permissions] User {name} from {connection.Socket.RemoteEndPoint} tried to {method}, missing permissions: {(DfsPermissions) missing}");
                 return false;
             }
+            Console.WriteLine($"[Permissions] {connection.Socket.RemoteEndPoint}: {method}");
             return true;
         }
     }

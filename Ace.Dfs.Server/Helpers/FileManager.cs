@@ -47,7 +47,6 @@ namespace Ace.Dfs.Server.Helpers
 
         public static void UpdateLastAccessed(string path)
         {
-            Console.WriteLine($"bumped last accessed on {path}");
             File.SetLastAccessTime(path, DateTime.Now);
         }
 

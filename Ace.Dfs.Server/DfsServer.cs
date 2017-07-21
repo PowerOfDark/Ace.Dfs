@@ -48,7 +48,7 @@ namespace Ace.Dfs.Server
                 return;
             }
             var cfg = DfsProtocolConfiguration.Instance;
-            var cert = new X509Certificate(Config.Dfs.CertificatePath, Config.Dfs.CertificatePassword);
+            var cert = new X509Certificate2(Config.Dfs.CertificatePath, Config.Dfs.CertificatePassword);
             var factory = cfg.GetServerSslFactory(cert);
 
             VerifyQueue = new ThreadedQueueProcessor<IncomingFileStatus>(Config.Dfs.VerifyQueue, new VerifyFileWorker());

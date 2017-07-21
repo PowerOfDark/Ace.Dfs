@@ -20,7 +20,7 @@ namespace Ace.Dfs.TestClient
 
         private static void Main(string[] args)
         {
-            var cert = new X509Certificate(@"D:\cert\openssl\ace.realm\device.pfx", "acerealm");
+            var cert = new X509Certificate2(@"D:\cert\openssl\ace.realm\device.pfx", "acerealm");
             var cl = new TcpClient();
             while (true)
             {

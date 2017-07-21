@@ -53,16 +53,16 @@ namespace Ace.Dfs.Common
         }
 
         public override ClientSslStreamFactory GetClientSslFactory(string targetCommonCame = "",
-            X509Certificate certificate = null)
+            X509Certificate2 certificate = null)
         {
-            if ((SslMode != SslMode.None) & RequireClientCertificate && certificate == null)
+            if ((SslMode != SslMode.None) && RequireClientCertificate && certificate == null)
             {
                 throw new ArgumentNullException(nameof(certificate));
             }
             return new ClientSslStreamFactory(targetCommonCame, certificate);
         }
 
-        public override ServerSslStreamFactory GetServerSslFactory(X509Certificate certificate = null)
+        public override ServerSslStreamFactory GetServerSslFactory(X509Certificate2 certificate = null)
         {
             if (SslMode != SslMode.None && certificate == null)
             {
