@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 using Ace.Networking;
 using Ace.Networking.MicroProtocol;
@@ -53,13 +54,13 @@ namespace Ace.Dfs.Common
         }
 
         public override ClientSslStreamFactory GetClientSslFactory(string targetCommonCame = "",
-            X509Certificate2 certificate = null)
+            X509Certificate2 certificate = null, SslProtocols protocols = SslProtocols.Tls12)
         {
-            if ((SslMode != SslMode.None) && RequireClientCertificate && certificate == null)
+            if (SslMode != SslMode.None && RequireClientCertificate && certificate == null)
             {
                 throw new ArgumentNullException(nameof(certificate));
             }
-            return new ClientSslStreamFactory(targetCommonCame, certificate);
+            return new ClientSslStreamFactory(targetCommonCame, certificate, protocols);
         }
 
         public override ServerSslStreamFactory GetServerSslFactory(X509Certificate2 certificate = null)
@@ -68,7 +69,8 @@ namespace Ace.Dfs.Common
             {
                 throw new ArgumentNullException(nameof(certificate));
             }
-            return new ServerSslStreamFactory(certificate, RequireClientCertificate);
+            return new ServerSslStreamFactory(certificate, RequireClientCertificate,
+                SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12);
         }
     }
 }
