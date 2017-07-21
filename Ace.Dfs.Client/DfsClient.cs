@@ -18,6 +18,7 @@ using Ace.Dfs.Common.Packets.ShareFile;
 using Ace.Dfs.Common.Packets.UnzipFile;
 using Ace.Networking;
 using Ace.Networking.Helpers;
+using Ace.Networking.MicroProtocol.Interfaces;
 using Ace.Networking.Threading;
 
 namespace Ace.Dfs.Client
@@ -32,11 +33,10 @@ namespace Ace.Dfs.Client
         private long _currentCacheSize;
         private volatile bool _initialized;
 
-        public DfsClient(string serverCommonName, TcpClient client, X509Certificate2 cert, string path = "",
+        public DfsClient(ISslStreamFactory sslFactory, TcpClient client, string path = "",
             long cacheSize = 1024 * 1024 * 1024 * 2L, int cacheLookupSize = 100_000, long minFree = 1024 * 1024 * 50)
         {
             var cfg = DfsProtocolConfiguration.Instance;
-            var sslFactory = cfg.GetClientSslFactory(serverCommonName, cert);
             Connection = new Connection(client, cfg, sslFactory);
             Path = path;
             CacheLookupSize = cacheLookupSize;

@@ -34,7 +34,10 @@ namespace Ace.Dfs.TestClient
                     Thread.Sleep(500);
                 }
             }
-            client = new DfsClient("ace.dfs", cl, cert, "D:\\Ace-Dfs-Client-Cache");
+            var cfg = DfsProtocolConfiguration.Instance;
+            var ssl = cfg.GetClientSslFactory("ace.dfs", cert);
+
+            client = new DfsClient(ssl, cl, "D:\\Ace-Dfs-Client-Cache");
             client.Initialize();
 
             Task.Factory.StartNew(Test);
