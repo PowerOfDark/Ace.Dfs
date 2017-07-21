@@ -27,7 +27,7 @@ namespace Ace.Dfs.Common
             PayloadDecoder = new MicroDecoder(serializer.Clone());
             CustomOutcomingMessageQueue = GlobalOutcomingMessageQueue.Instance;
             CustomIncomingMessageQueue = GlobalIncomingMessageQueue.Instance;
-            SslMode = SslMode.AuthorizationOnly;
+            SslMode = SslMode.Full;
             RequireClientCertificate = true;
             Initialize();
         }
