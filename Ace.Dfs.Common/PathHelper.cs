@@ -8,18 +8,18 @@ namespace Ace.Dfs.Common
         public const int MaxHashLength = 44;
         public const int Depth = 6; // 44 chars - 12 = 32 chars for file name
 
-        public static string MapLocal(string hash, string path = "")
+        public static string MapLocal(string hash, string path = "", int depth = Depth)
         {
-            if (hash.Length <= Depth * 2)
+            if (hash.Length <= depth * 2)
             {
                 return null;
             }
             var ret = path;
-            for (var i = 0; i < Depth; i++)
+            for (var i = 0; i < depth; i++)
             {
                 ret = Path.Combine(ret, hash.Substring(i * 2, 2));
             }
-            ret = Path.Combine(ret, hash.Substring(Depth * 2));
+            ret = Path.Combine(ret, hash.Substring(depth * 2));
             return ret;
         }
 
