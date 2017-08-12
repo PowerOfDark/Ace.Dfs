@@ -21,7 +21,7 @@ namespace Ace.Dfs.Client
                 if (item.Status.VerifyHash)
                 {
                     item.Status.FileStream.Seek(0, SeekOrigin.Begin);
-                    var s64Sha256 = item.Status.FileStream.S64Sha256();
+                    var s64Sha256 = item.Status.FileStream.S64Sha256L();
                     if (s64Sha256 != reqHash)
                     {
                         error = true;

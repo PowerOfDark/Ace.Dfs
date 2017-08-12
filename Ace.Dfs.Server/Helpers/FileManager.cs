@@ -57,7 +57,7 @@ namespace Ace.Dfs.Server.Helpers
             {
                 using (var fs = File.Open(filename, FileMode.Open, FileAccess.Read, System.IO.FileShare.Read))
                 {
-                    key = fs.S64Sha256();
+                    key = fs.S64Sha256L();
                 }
             }
 

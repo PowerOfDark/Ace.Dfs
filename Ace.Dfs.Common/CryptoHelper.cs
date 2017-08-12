@@ -19,13 +19,18 @@ namespace Ace.Dfs.Common
                 return ToSafe64String(sha.ComputeHash(Encoding.UTF8.GetBytes(str)));
             }
         }
-
-        public static string S64Sha256(this FileStream fs)
+        
+        private static string S64Sha256(this FileStream fs)
         {
             using (var sha = SHA256.Create())
             {
                 return ToSafe64String(sha.ComputeHash(fs));
             }
+        }
+
+        public static string S64Sha256L(this FileStream fs)
+        {
+            return S64Sha256(fs) + ToSafe64String(BitConverter.GetBytes(fs.Length));
         }
 
         public static string ToSafe64String(byte[] buf)
@@ -55,6 +60,13 @@ namespace Ace.Dfs.Common
         {
             return !ValidateHash.IsMatch(str);
         }
+
+        public static bool IsHandleValid(string str)
+        {
+            return IsHashValid(str);
+        }
+
+
 
         public static int BuildDiscriminatorFromS64(string s64)
         {

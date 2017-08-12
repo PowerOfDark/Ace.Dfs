@@ -109,7 +109,7 @@ namespace Ace.Dfs.Client
                 foreach (var file in files)
                 {
                     var date = file.LastAccessTime;
-                    var val = PathHelper.MapHashFromLocal(file.FullName);
+                    var val = PathHelper.MapHandleFromLocal(file.FullName);
                     if (count < CacheLookupSize)
                     {
                         if (Lookup.Add(new Tuple<DateTime, string>(date, val)))
@@ -203,27 +203,27 @@ namespace Ace.Dfs.Client
                 throw new ArgumentException(nameof(path));
             }
             Task<object> completion;
-            string s64Sha256;
+            string handle;
 
             void Complete(S2C_PutFileComplete res)
             {
                 if (res.Status != PutFileStatus.Error && putIntoCache)
                 {
-                    PutIntoCache(path, s64Sha256, putIntoCacheMove);
+                    PutIntoCache(path, handle, putIntoCacheMove);
                 }
             }
 
             using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                s64Sha256 = fs.S64Sha256();
+                handle = fs.S64Sha256L();
                 fs.Seek(0, SeekOrigin.Begin);
                 var len = fs.Length;
 
-                var req = new C2S_PutFileRequest(s64Sha256, len);
+                var req = new C2S_PutFileRequest(handle, len);
                 var ready = await Connection.SendRequest<C2S_PutFileRequest, S2C_PutFileReady>(req, TimeSpan.FromSeconds(10000));
                 if (ready.Status == PutFileStatus.FileExists)
                 {
-                    var res = new S2C_PutFileComplete(s64Sha256, PutFileStatus.FileExists);
+                    var res = new S2C_PutFileComplete(handle, PutFileStatus.FileExists);
                     Complete(res);
                     return res;
                 }
@@ -231,7 +231,7 @@ namespace Ace.Dfs.Client
                 {
                     throw new Exception(ready.Status.ToString());
                 }
-                completion = Connection.Receive((o, t) => o is S2C_PutFileComplete c && c.S64Sha256 == s64Sha256);
+                completion = Connection.Receive((o, t) => o is S2C_PutFileComplete c && c.S64Sha256 == handle);
                 var allParts = DfsConfiguration.GetNumberOfChunks(len);
                 var left = len;
                 for (var i = 0; i < allParts; i++)
@@ -262,7 +262,7 @@ namespace Ace.Dfs.Client
             {
                 using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    s64Sha256 = fs.S64Sha256();
+                    s64Sha256 = fs.S64Sha256L();
                 }
             }
             if (PathHelper.FileExists(s64Sha256, out var targetPath, Path))

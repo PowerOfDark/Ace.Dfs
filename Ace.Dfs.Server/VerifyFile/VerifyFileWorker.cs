@@ -40,7 +40,7 @@ namespace Ace.Dfs.Server.VerifyFile
                 if (!error)
                 {
                     fs.Seek(0, SeekOrigin.Begin);
-                    s64Sha256 = fs.S64Sha256();
+                    s64Sha256 = fs.S64Sha256L();
                     if (s64Sha256 != item.Request.S64Sha256)
                     {
                         error = true;
