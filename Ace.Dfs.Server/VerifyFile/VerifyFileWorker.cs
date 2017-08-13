@@ -4,6 +4,7 @@ using Ace.Dfs.Common;
 using Ace.Dfs.Common.Packets.PutFile;
 using Ace.Dfs.Server.Helpers;
 using Ace.Dfs.Server.Structures;
+using Ace.Networking;
 using Ace.Networking.Interfaces;
 
 namespace Ace.Dfs.Server.VerifyFile

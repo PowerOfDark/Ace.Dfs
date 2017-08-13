@@ -2,6 +2,7 @@
 using System.IO;
 using Ace.Dfs.Common;
 using Ace.Dfs.Common.Packets.DownloadFile;
+using Ace.Networking;
 using Ace.Networking.Interfaces;
 
 namespace Ace.Dfs.Server.SendFile
